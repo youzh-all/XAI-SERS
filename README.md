@@ -1,6 +1,6 @@
-# XAI-SERS Public Release (Comment 7)
+# XAI-SERS Public Release
 
-This folder is prepared for public GitHub release to address reviewer comment on data/code availability.
+This folder is prepared for public GitHub release 
 
 ## What is included
 
@@ -10,7 +10,7 @@ This folder is prepared for public GitHub release to address reviewer comment on
   - `data/labels_train.npy` shape `(6255,)`
   - `data/labels_test.npy` shape `(1564,)`
 - Trained 1D-CNN model:
-  - `model/model_1dcnn.h5`
+  - `model/model_1DCNN.h5`
 - Preprocessing and model-training scripts:
   - `code/preprocess_step1_baseline.py`
   - `code/preprocess_step2_despike.py`
@@ -21,6 +21,30 @@ This folder is prepared for public GitHub release to address reviewer comment on
   - `code/train_svm.py`
   - `code/eval_macro_f1.py`
   - `code/explain_shap.py` (single SHAP script kept)
+
+## 1D-CNN training defaults (current release code)
+
+`code/train_1dcnn.py` is configured with the following defaults:
+
+- batch size: `32`
+- split ratio: `70/15/15` (train/val/test)
+- split seed: `42`
+- number of runs: `5` (`run seeds = 0 1 2 3 4`)
+- epochs: `50`
+- early stopping: `monitor='loss'`, `patience=5`, `restore_best_weights=True`
+- best model save rule: highest `test_accuracy` across runs (changeable via `--best-by`)
+
+You can run:
+
+```bash
+python code/train_1dcnn.py
+```
+
+To use an alternate split ratio example (`80/10/10`):
+
+```bash
+python code/train_1dcnn.py --train-ratio 0.8 --val-ratio 0.1 --test-ratio 0.1
+```
 
 ## What is not included
 
@@ -47,7 +71,7 @@ The label order follows the class list used in the original 1D-CNN script:
 - `X_test.npy` -> `data/spectra_test.npy`
 - `y_train.npy` -> `data/labels_train.npy`
 - `y_test.npy` -> `data/labels_test.npy`
-- `model_1DCNN.h5` -> `model/model_1dcnn.h5`
+- `model_1DCNN.h5` -> `model/model_1DCNN.h5`
 - `model_1DCNN (Feature importance).py` -> `code/train_1dcnn.py`
 - `model_MLP.py` -> `code/train_mlp.py`
 - `model_RF.py` -> `code/train_rf.py`
@@ -62,7 +86,3 @@ The label order follows the class list used in the original 1D-CNN script:
 
 Scripts were copied from the original working directory with simplified names for readability.  
 Some scripts still contain original relative paths and may require path updates depending on your execution location.
-
-## Suggested manuscript statement
-
-"Processed spectra and labels, along with preprocessing/model-training code, are publicly available at our GitHub repository (link to be provided in the final version)."
