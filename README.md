@@ -46,11 +46,6 @@ To use an alternate split ratio example (`80/10/10`):
 python code/train_1dcnn.py --train-ratio 0.8 --val-ratio 0.1 --test-ratio 0.1
 ```
 
-## What is not included
-
-- Raw spectra directories (`data/`, `data_BC/`, `data_BCDS/`, `data_BCDSpBN`) are not included in this compact release folder.
-- SHAP result CSV files are intentionally excluded (script is included for regeneration).
-
 ## Label index mapping
 
 The label order follows the class list used in the original 1D-CNN script:
